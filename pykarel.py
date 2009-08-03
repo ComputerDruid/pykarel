@@ -1,5 +1,5 @@
 #
-# pykarel by Daniel Johnson <ComputerDruid@gmail.com>
+# pykarel by Daniel Johnson <2010djohnson@tjhsst.edu>
 #
 import Tkinter
 import threading
@@ -14,6 +14,7 @@ blockHeight=HEIGHT/numRows
 local=threading.local()
 robots = []
 beepers = []
+
 def __initGraphics():
 	global hlines,vlines
 	hlines=[]
@@ -22,9 +23,11 @@ def __initGraphics():
 	vlines=[]
 	for i in xrange(0,numCols):
 		vlines.append(w.create_line(i*blockWidth+blockWidth/2,0,i*blockWidth+blockWidth/2,HEIGHT,fill="red"));
+
 def __windowkilled():
 	print "window deleted"
 	rootW.destroy()
+
 def __init():
 	global rootW,w
 	rootW = Tkinter.Tk()
@@ -60,16 +63,23 @@ def step():
 
 def addRobot(r):
 	robots.append(r)
+
 class beeperPile:
 	def __init__(self):
 		self.count=1
 		self.x=1
 		self.y=1
+
 def addBeeper(x,y):
 	for s in beepers:
 		if s.x==x and s.y ==y:
 			s.beepers+=1
 			return
+	#else
+	b=beeperPile()
+	b.x=x
+	b.y=y
+	beepers.append(b)
 
 class robot:
 	def __init__(self):
